@@ -1,5 +1,7 @@
-﻿using Core.Abstracts.IUnitOfWorks;
+﻿using Core.Abstracts.IRepositories;
+using Core.Abstracts.IUnitOfWorks;
 using Data.Contexts;
+using Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +12,27 @@ namespace Data.UnitOfWorks
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private DataContext context;
+        private AW22Context context;
+        private IProductRepository productRepo;
+        private IProductCategoryRepository categoryRepo;
+        private IProductSubcategoryRepository subcategoryRepo;
+        private IProductPhotoRepository productPhotoRepo;
+        private IProductProductPhotoRepository productProductPhotoRepo;
 
-        public UnitOfWork(DataContext context)
+        public UnitOfWork(AW22Context context)
         {
             this.context = context;
         }
+
+        public IProductRepository ProductRepo => productRepo ??= new ProductRepository(context);
+
+        public IProductCategoryRepository CategoryRepo => categoryRepo ??= new ProductCategoryRepository(context);
+
+        public IProductSubcategoryRepository SubcategoryRepo => subcategoryRepo ??= new ProductSubcategoryRepository(context);
+
+        public IProductPhotoRepository PhotoRepo => productPhotoRepo ??= new ProductPhotoRepository(context);
+
+        public IProductProductPhotoRepository ProductPhotoRepo => productProductPhotoRepo ??= new ProductProductPhotoRepository(context);
 
         public async Task CommitAsync()
         {

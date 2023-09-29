@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected DbContext context;
         protected DbSet<T> set;
@@ -30,44 +30,44 @@ namespace Data.Repositories
         {
             var entities = await GetAllAsync();
             //Fiziksel silme:
-            //await DeleteManyAsync(entities);
+            await DeleteManyAsync(entities);
 
             //Silindi gösterme:
-            var deleted_entities = new List<T>();
-            foreach (var item in entities)
-            {
-                item.Deleted = true;
-                item.Active = false;
-                deleted_entities.Add(item);
-            }
-            await UpdateManyAsync(deleted_entities);
+            //var deleted_entities = new List<T>();
+            //foreach (var item in entities)
+            //{
+            //    item.Deleted = true;
+            //    item.Active = false;
+            //    deleted_entities.Add(item);
+            //}
+            //await UpdateManyAsync(deleted_entities);
         }
 
         public async Task DeleteManyAsync(IEnumerable<T> entities)
         {
             //Fiziksel silme:
-            //await Task.Run(() => set.RemoveRange(entities));
+            await Task.Run(() => set.RemoveRange(entities));
 
             //Silindi gösterme:
-            var deleted_entities = new List<T>();
-            foreach (var item in entities)
-            {
-                item.Deleted = true;
-                item.Active = false;
-                deleted_entities.Add(item);
-            }
-            await UpdateManyAsync(deleted_entities);
+            //var deleted_entities = new List<T>();
+            //foreach (var item in entities)
+            //{
+            //    item.Deleted = true;
+            //    item.Active = false;
+            //    deleted_entities.Add(item);
+            //}
+            //await UpdateManyAsync(deleted_entities);
         }
 
         public async Task DeleteOneAsync(T entity)
         {
             //Fiziksel silme:
-            //await Task.Run(() => set.Remove(entity));
+            await Task.Run(() => set.Remove(entity));
 
             //Silindi gösterme:
-            entity.Deleted = true;
-            entity.Active = false;
-            await UpdateOneAsync(entity);
+            //entity.Deleted = true;
+            //entity.Active = false;
+            //await UpdateOneAsync(entity);
         }
 
         public async Task<bool> ExistsAsync(Expression<Func<T, bool>> expression)
@@ -77,9 +77,15 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<T>> GetAllAsync(string[]? includes = null)
         {
-            return includes != null ?
-                await Task.Run(() => set.Include(string.Join(",", includes))) :
-                await Task.Run(() => set);
+            IQueryable<T> data = set;
+            if (includes != null)
+            {
+                foreach (var item in includes)
+                {
+                    data = data.Include(item);
+                }
+            }
+            return await Task.Run(() => data);
         }
 
         public async Task<T?> GetFirstAsync(Expression<Func<T, bool>>? expression = null)
@@ -89,12 +95,18 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> expression, string[]? includes = null)
         {
-            return includes != null ?
-                await Task.Run(() => set.Where(expression).Include(string.Join(",", includes))) :
-                await Task.Run(() => set.Where(expression));
+            IQueryable<T> data = set.Where(expression);
+            if (includes != null)
+            {
+                foreach (var item in includes)
+                {
+                    data = data.Include(item);
+                }
+            }
+            return await Task.Run(() => data);
         }
 
-        public async Task<T?> GetOneAsync(string entityKey)
+        public async Task<T?> GetOneAsync(object entityKey)
         {
             return await set.FindAsync(entityKey);
         }

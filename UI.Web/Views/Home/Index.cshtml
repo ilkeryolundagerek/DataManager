@@ -1,0 +1,29 @@
+﻿@using Core.Concretes.DTOs;
+@using System.Text;
+@model IEnumerable<ProductListDTO>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card h-100">
+                <img src="@BusinessLogic.Toolkit.Convertors.ByteArrayToBase64(item.LargePhotos.FirstOrDefault())" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5>@item.Name (@item.ProductNumber)</h5>
+                    <p>@item.SubcategoryName / @item.CategoryName</p>
+                    <p>$@item.ListPrice</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+    }
+</div>

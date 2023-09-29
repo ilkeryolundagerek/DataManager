@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Core.Abstracts.IRepositories
 {
-    public interface IGenericRepository<T> where T : BaseEntity
+    public interface IGenericRepository<T> where T : class
     {
         Task InsertOneAsync(T entity);
         Task InsertManyAsync(IEnumerable<T> entities);
@@ -22,7 +22,7 @@ namespace Core.Abstracts.IRepositories
 
         Task<IEnumerable<T>> GetAllAsync(string[]? includes = null);
         Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> expression, string[]? includes = null);
-        Task<T?> GetOneAsync(string entityKey);
+        Task<T?> GetOneAsync(object entityKey);
         Task<T?> GetFirstAsync(Expression<Func<T, bool>>? expression = null);
 
         Task<int> CountAsync(Expression<Func<T, bool>>? expression = null);
