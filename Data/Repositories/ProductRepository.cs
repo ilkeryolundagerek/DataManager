@@ -43,4 +43,18 @@ namespace Data.Repositories
         {
         }
     }
+
+    public class ShoppingCartRepository : GenericRepository<ShoppingCart>, IShoppingCartRepository
+    {
+        public ShoppingCartRepository(DbContext context) : base(context)
+        {
+        }
+    }
+
+    public class ShoppingCartItemRepository : GenericRepository<ShoppingCartItem>, IShoppingCartItemRepository
+    {
+        public ShoppingCartItemRepository(DbContext context) : base(context)
+        {
+        }
+    }
 }

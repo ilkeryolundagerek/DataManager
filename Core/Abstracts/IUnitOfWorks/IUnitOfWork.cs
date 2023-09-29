@@ -14,6 +14,8 @@ namespace Core.Abstracts.IUnitOfWorks
         IProductSubcategoryRepository SubcategoryRepo { get; }
         IProductPhotoRepository PhotoRepo { get; }
         IProductProductPhotoRepository ProductPhotoRepo { get; }
+        IShoppingCartRepository ShoppingCartRepo { get; }
+        IShoppingCartItemRepository ShoppingCartItemRepo { get; }
         Task CommitAsync();
     }
 }

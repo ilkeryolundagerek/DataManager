@@ -12,4 +12,6 @@ namespace Core.Abstracts.IRepositories
     public interface IProductSubcategoryRepository : IGenericRepository<ProductSubcategory> { }
     public interface IProductPhotoRepository : IGenericRepository<ProductPhoto> { }
     public interface IProductProductPhotoRepository : IGenericRepository<ProductProductPhoto> { }
+    public interface IShoppingCartRepository : IGenericRepository<ShoppingCart> { }
+    public interface IShoppingCartItemRepository : IGenericRepository<ShoppingCartItem> { }
 }

@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 var connection_strings = builder.Configuration.GetSection("ConnectionStrings").GetChildren();
 builder.Services.AddBaseServices(connection_strings);
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));

@@ -19,6 +19,12 @@
                     <h5>@item.Name (@item.ProductNumber)</h5>
                     <p>@item.SubcategoryName / @item.CategoryName</p>
                     <p>$@item.ListPrice</p>
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <button class="btn btn-outline-dark btn-sm">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                    }
                 </div>
                 <div class="card-footer">
                     <small class="text-body-secondary">Last updated 3 mins ago</small>

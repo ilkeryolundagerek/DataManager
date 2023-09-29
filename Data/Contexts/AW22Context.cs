@@ -17,6 +17,8 @@ public partial class AW22Context : DbContext
     {
     }
 
+    public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
+
     public virtual DbSet<Address> Addresses { get; set; }
 
     public virtual DbSet<AddressType> AddressTypes { get; set; }
@@ -199,8 +201,7 @@ public partial class AW22Context : DbContext
     {
         modelBuilder.UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
-        modelBuilder.Entity<Address>(entity =>
-        {
+        modelBuilder.Entity<Address>(entity => {
             entity.HasKey(e => e.AddressId).HasName("PK_Address_AddressID");
 
             entity.ToTable("Address", "Person", tb => tb.HasComment("Street address information for customers, employees, and vendors."));
@@ -243,8 +244,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<AddressType>(entity =>
-        {
+        modelBuilder.Entity<AddressType>(entity => {
             entity.HasKey(e => e.AddressTypeId).HasName("PK_AddressType_AddressTypeID");
 
             entity.ToTable("AddressType", "Person", tb => tb.HasComment("Types of addresses stored in the Address table. "));
@@ -269,8 +269,7 @@ public partial class AW22Context : DbContext
                 .HasColumnName("rowguid");
         });
 
-        modelBuilder.Entity<AwbuildVersion>(entity =>
-        {
+        modelBuilder.Entity<AwbuildVersion>(entity => {
             entity.HasKey(e => e.SystemInformationId).HasName("PK_AWBuildVersion_SystemInformationID");
 
             entity.ToTable("AWBuildVersion", tb => tb.HasComment("Current version number of the AdventureWorks 2016 sample database. "));
@@ -292,8 +291,7 @@ public partial class AW22Context : DbContext
                 .HasColumnType("datetime");
         });
 
-        modelBuilder.Entity<BillOfMaterial>(entity =>
-        {
+        modelBuilder.Entity<BillOfMaterial>(entity => {
             entity.HasKey(e => e.BillOfMaterialsId)
                 .HasName("PK_BillOfMaterials_BillOfMaterialsID")
                 .IsClustered(false);
@@ -349,8 +347,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<BusinessEntity>(entity =>
-        {
+        modelBuilder.Entity<BusinessEntity>(entity => {
             entity.HasKey(e => e.BusinessEntityId).HasName("PK_BusinessEntity_BusinessEntityID");
 
             entity.ToTable("BusinessEntity", "Person", tb => tb.HasComment("Source of the ID that connects vendors, customers, and employees with address and contact information."));
@@ -370,8 +367,7 @@ public partial class AW22Context : DbContext
                 .HasColumnName("rowguid");
         });
 
-        modelBuilder.Entity<BusinessEntityAddress>(entity =>
-        {
+        modelBuilder.Entity<BusinessEntityAddress>(entity => {
             entity.HasKey(e => new { e.BusinessEntityId, e.AddressId, e.AddressTypeId }).HasName("PK_BusinessEntityAddress_BusinessEntityID_AddressID_AddressTypeID");
 
             entity.ToTable("BusinessEntityAddress", "Person", tb => tb.HasComment("Cross-reference table mapping customers, vendors, and employees to their addresses."));
@@ -413,8 +409,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<BusinessEntityContact>(entity =>
-        {
+        modelBuilder.Entity<BusinessEntityContact>(entity => {
             entity.HasKey(e => new { e.BusinessEntityId, e.PersonId, e.ContactTypeId }).HasName("PK_BusinessEntityContact_BusinessEntityID_PersonID_ContactTypeID");
 
             entity.ToTable("BusinessEntityContact", "Person", tb => tb.HasComment("Cross-reference table mapping stores, vendors, and employees to people"));
@@ -456,8 +451,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<ContactType>(entity =>
-        {
+        modelBuilder.Entity<ContactType>(entity => {
             entity.HasKey(e => e.ContactTypeId).HasName("PK_ContactType_ContactTypeID");
 
             entity.ToTable("ContactType", "Person", tb => tb.HasComment("Lookup table containing the types of business entity contacts."));
@@ -476,8 +470,7 @@ public partial class AW22Context : DbContext
                 .HasComment("Contact type description.");
         });
 
-        modelBuilder.Entity<CountryRegion>(entity =>
-        {
+        modelBuilder.Entity<CountryRegion>(entity => {
             entity.HasKey(e => e.CountryRegionCode).HasName("PK_CountryRegion_CountryRegionCode");
 
             entity.ToTable("CountryRegion", "Person", tb => tb.HasComment("Lookup table containing the ISO standard codes for countries and regions."));
@@ -496,8 +489,7 @@ public partial class AW22Context : DbContext
                 .HasComment("Country or region name.");
         });
 
-        modelBuilder.Entity<CountryRegionCurrency>(entity =>
-        {
+        modelBuilder.Entity<CountryRegionCurrency>(entity => {
             entity.HasKey(e => new { e.CountryRegionCode, e.CurrencyCode }).HasName("PK_CountryRegionCurrency_CountryRegionCode_CurrencyCode");
 
             entity.ToTable("CountryRegionCurrency", "Sales", tb => tb.HasComment("Cross-reference table mapping ISO currency codes to a country or region."));
@@ -525,8 +517,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<CreditCard>(entity =>
-        {
+        modelBuilder.Entity<CreditCard>(entity => {
             entity.HasKey(e => e.CreditCardId).HasName("PK_CreditCard_CreditCardID");
 
             entity.ToTable("CreditCard", "Sales", tb => tb.HasComment("Customer credit card information."));
@@ -550,8 +541,7 @@ public partial class AW22Context : DbContext
                 .HasColumnType("datetime");
         });
 
-        modelBuilder.Entity<Culture>(entity =>
-        {
+        modelBuilder.Entity<Culture>(entity => {
             entity.HasKey(e => e.CultureId).HasName("PK_Culture_CultureID");
 
             entity.ToTable("Culture", "Production", tb => tb.HasComment("Lookup table containing the languages in which some AdventureWorks data is stored."));
@@ -572,8 +562,7 @@ public partial class AW22Context : DbContext
                 .HasComment("Culture description.");
         });
 
-        modelBuilder.Entity<Currency>(entity =>
-        {
+        modelBuilder.Entity<Currency>(entity => {
             entity.HasKey(e => e.CurrencyCode).HasName("PK_Currency_CurrencyCode");
 
             entity.ToTable("Currency", "Sales", tb => tb.HasComment("Lookup table containing standard ISO currencies."));
@@ -593,8 +582,7 @@ public partial class AW22Context : DbContext
                 .HasComment("Currency name.");
         });
 
-        modelBuilder.Entity<CurrencyRate>(entity =>
-        {
+        modelBuilder.Entity<CurrencyRate>(entity => {
             entity.HasKey(e => e.CurrencyRateId).HasName("PK_CurrencyRate_CurrencyRateID");
 
             entity.ToTable("CurrencyRate", "Sales", tb => tb.HasComment("Currency exchange rates."));
@@ -635,8 +623,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<Customer>(entity =>
-        {
+        modelBuilder.Entity<Customer>(entity => {
             entity.HasKey(e => e.CustomerId).HasName("PK_Customer_CustomerID");
 
             entity.ToTable("Customer", "Sales", tb => tb.HasComment("Current customer information. Also see the Person and Store tables."));
@@ -680,8 +667,7 @@ public partial class AW22Context : DbContext
             entity.HasOne(d => d.Territory).WithMany(p => p.Customers).HasForeignKey(d => d.TerritoryId);
         });
 
-        modelBuilder.Entity<DatabaseLog>(entity =>
-        {
+        modelBuilder.Entity<DatabaseLog>(entity => {
             entity.HasKey(e => e.DatabaseLogId)
                 .HasName("PK_DatabaseLog_DatabaseLogID")
                 .IsClustered(false);
@@ -714,8 +700,7 @@ public partial class AW22Context : DbContext
                 .HasColumnType("xml");
         });
 
-        modelBuilder.Entity<Department>(entity =>
-        {
+        modelBuilder.Entity<Department>(entity => {
             entity.HasKey(e => e.DepartmentId).HasName("PK_Department_DepartmentID");
 
             entity.ToTable("Department", "HumanResources", tb => tb.HasComment("Lookup table containing the departments within the Adventure Works Cycles company."));
@@ -737,8 +722,7 @@ public partial class AW22Context : DbContext
                 .HasComment("Name of the department.");
         });
 
-        modelBuilder.Entity<EmailAddress>(entity =>
-        {
+        modelBuilder.Entity<EmailAddress>(entity => {
             entity.HasKey(e => new { e.BusinessEntityId, e.EmailAddressId }).HasName("PK_EmailAddress_BusinessEntityID_EmailAddressID");
 
             entity.ToTable("EmailAddress", "Person", tb => tb.HasComment("Where to send a person email."));
@@ -770,15 +754,13 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<Employee>(entity =>
-        {
+        modelBuilder.Entity<Employee>(entity => {
             entity.HasKey(e => e.BusinessEntityId).HasName("PK_Employee_BusinessEntityID");
 
-            entity.ToTable("Employee", "HumanResources", tb =>
-                {
-                    tb.HasComment("Employee information such as salary, department, and title.");
-                    tb.HasTrigger("dEmployee");
-                });
+            entity.ToTable("Employee", "HumanResources", tb => {
+                tb.HasComment("Employee information such as salary, department, and title.");
+                tb.HasTrigger("dEmployee");
+            });
 
             entity.HasIndex(e => e.LoginId, "AK_Employee_LoginID").IsUnique();
 
@@ -842,8 +824,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<EmployeeDepartmentHistory>(entity =>
-        {
+        modelBuilder.Entity<EmployeeDepartmentHistory>(entity => {
             entity.HasKey(e => new { e.BusinessEntityId, e.StartDate, e.DepartmentId, e.ShiftId }).HasName("PK_EmployeeDepartmentHistory_BusinessEntityID_StartDate_DepartmentID");
 
             entity.ToTable("EmployeeDepartmentHistory", "HumanResources", tb => tb.HasComment("Employee department transfers."));
@@ -885,8 +866,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<EmployeePayHistory>(entity =>
-        {
+        modelBuilder.Entity<EmployeePayHistory>(entity => {
             entity.HasKey(e => new { e.BusinessEntityId, e.RateChangeDate }).HasName("PK_EmployeePayHistory_BusinessEntityID_RateChangeDate");
 
             entity.ToTable("EmployeePayHistory", "HumanResources", tb => tb.HasComment("Employee pay history."));
@@ -911,8 +891,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<ErrorLog>(entity =>
-        {
+        modelBuilder.Entity<ErrorLog>(entity => {
             entity.HasKey(e => e.ErrorLogId).HasName("PK_ErrorLog_ErrorLogID");
 
             entity.ToTable("ErrorLog", tb => tb.HasComment("Audit table tracking errors in the the AdventureWorks database that are caught by the CATCH block of a TRY...CATCH construct. Data is inserted by stored procedure dbo.uspLogError when it is executed from inside the CATCH block of a TRY...CATCH construct."));
@@ -939,8 +918,7 @@ public partial class AW22Context : DbContext
                 .HasComment("The user who executed the batch in which the error occurred.");
         });
 
-        modelBuilder.Entity<Illustration>(entity =>
-        {
+        modelBuilder.Entity<Illustration>(entity => {
             entity.HasKey(e => e.IllustrationId).HasName("PK_Illustration_IllustrationID");
 
             entity.ToTable("Illustration", "Production", tb => tb.HasComment("Bicycle assembly diagrams."));
@@ -957,8 +935,7 @@ public partial class AW22Context : DbContext
                 .HasColumnType("datetime");
         });
 
-        modelBuilder.Entity<JobCandidate>(entity =>
-        {
+        modelBuilder.Entity<JobCandidate>(entity => {
             entity.HasKey(e => e.JobCandidateId).HasName("PK_JobCandidate_JobCandidateID");
 
             entity.ToTable("JobCandidate", "HumanResources", tb => tb.HasComment("Résumés submitted to Human Resources by job applicants."));
@@ -982,8 +959,7 @@ public partial class AW22Context : DbContext
             entity.HasOne(d => d.BusinessEntity).WithMany(p => p.JobCandidates).HasForeignKey(d => d.BusinessEntityId);
         });
 
-        modelBuilder.Entity<Location>(entity =>
-        {
+        modelBuilder.Entity<Location>(entity => {
             entity.HasKey(e => e.LocationId).HasName("PK_Location_LocationID");
 
             entity.ToTable("Location", "Production", tb => tb.HasComment("Product inventory and manufacturing locations."));
@@ -1010,8 +986,7 @@ public partial class AW22Context : DbContext
                 .HasComment("Location description.");
         });
 
-        modelBuilder.Entity<Password>(entity =>
-        {
+        modelBuilder.Entity<Password>(entity => {
             entity.HasKey(e => e.BusinessEntityId).HasName("PK_Password_BusinessEntityID");
 
             entity.ToTable("Password", "Person", tb => tb.HasComment("One way hashed authentication information"));
@@ -1041,15 +1016,13 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<Person>(entity =>
-        {
+        modelBuilder.Entity<Person>(entity => {
             entity.HasKey(e => e.BusinessEntityId).HasName("PK_Person_BusinessEntityID");
 
-            entity.ToTable("Person", "Person", tb =>
-                {
-                    tb.HasComment("Human beings involved with AdventureWorks: employees, customer contacts, and vendor contacts.");
-                    tb.HasTrigger("iuPerson");
-                });
+            entity.ToTable("Person", "Person", tb => {
+                tb.HasComment("Human beings involved with AdventureWorks: employees, customer contacts, and vendor contacts.");
+                tb.HasTrigger("iuPerson");
+            });
 
             entity.HasIndex(e => e.Rowguid, "AK_Person_rowguid").IsUnique();
 
@@ -1110,8 +1083,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<PersonCreditCard>(entity =>
-        {
+        modelBuilder.Entity<PersonCreditCard>(entity => {
             entity.HasKey(e => new { e.BusinessEntityId, e.CreditCardId }).HasName("PK_PersonCreditCard_BusinessEntityID_CreditCardID");
 
             entity.ToTable("PersonCreditCard", "Sales", tb => tb.HasComment("Cross-reference table mapping people to their credit card information in the CreditCard table. "));
@@ -1136,8 +1108,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<PersonPhone>(entity =>
-        {
+        modelBuilder.Entity<PersonPhone>(entity => {
             entity.HasKey(e => new { e.BusinessEntityId, e.PhoneNumber, e.PhoneNumberTypeId }).HasName("PK_PersonPhone_BusinessEntityID_PhoneNumber_PhoneNumberTypeID");
 
             entity.ToTable("PersonPhone", "Person", tb => tb.HasComment("Telephone number and type of a person."));
@@ -1167,8 +1138,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<PhoneNumberType>(entity =>
-        {
+        modelBuilder.Entity<PhoneNumberType>(entity => {
             entity.HasKey(e => e.PhoneNumberTypeId).HasName("PK_PhoneNumberType_PhoneNumberTypeID");
 
             entity.ToTable("PhoneNumberType", "Person", tb => tb.HasComment("Type of phone number of a person."));
@@ -1185,8 +1155,7 @@ public partial class AW22Context : DbContext
                 .HasComment("Name of the telephone number type");
         });
 
-        modelBuilder.Entity<Product>(entity =>
-        {
+        modelBuilder.Entity<Product>(entity => {
             entity.HasKey(e => e.ProductId).HasName("PK_Product_ProductID");
 
             entity.ToTable("Product", "Production", tb => tb.HasComment("Products sold or used in the manfacturing of sold products."));
@@ -1285,8 +1254,7 @@ public partial class AW22Context : DbContext
             entity.HasOne(d => d.WeightUnitMeasureCodeNavigation).WithMany(p => p.ProductWeightUnitMeasureCodeNavigations).HasForeignKey(d => d.WeightUnitMeasureCode);
         });
 
-        modelBuilder.Entity<ProductCategory>(entity =>
-        {
+        modelBuilder.Entity<ProductCategory>(entity => {
             entity.HasKey(e => e.ProductCategoryId).HasName("PK_ProductCategory_ProductCategoryID");
 
             entity.ToTable("ProductCategory", "Production", tb => tb.HasComment("High-level product categorization."));
@@ -1311,8 +1279,7 @@ public partial class AW22Context : DbContext
                 .HasColumnName("rowguid");
         });
 
-        modelBuilder.Entity<ProductCostHistory>(entity =>
-        {
+        modelBuilder.Entity<ProductCostHistory>(entity => {
             entity.HasKey(e => new { e.ProductId, e.StartDate }).HasName("PK_ProductCostHistory_ProductID_StartDate");
 
             entity.ToTable("ProductCostHistory", "Production", tb => tb.HasComment("Changes in the cost of a product over time."));
@@ -1339,8 +1306,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<ProductDescription>(entity =>
-        {
+        modelBuilder.Entity<ProductDescription>(entity => {
             entity.HasKey(e => e.ProductDescriptionId).HasName("PK_ProductDescription_ProductDescriptionID");
 
             entity.ToTable("ProductDescription", "Production", tb => tb.HasComment("Product descriptions in several languages."));
@@ -1363,8 +1329,7 @@ public partial class AW22Context : DbContext
                 .HasColumnName("rowguid");
         });
 
-        modelBuilder.Entity<ProductInventory>(entity =>
-        {
+        modelBuilder.Entity<ProductInventory>(entity => {
             entity.HasKey(e => new { e.ProductId, e.LocationId }).HasName("PK_ProductInventory_ProductID_LocationID");
 
             entity.ToTable("ProductInventory", "Production", tb => tb.HasComment("Product inventory information."));
@@ -1398,8 +1363,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<ProductListPriceHistory>(entity =>
-        {
+        modelBuilder.Entity<ProductListPriceHistory>(entity => {
             entity.HasKey(e => new { e.ProductId, e.StartDate }).HasName("PK_ProductListPriceHistory_ProductID_StartDate");
 
             entity.ToTable("ProductListPriceHistory", "Production", tb => tb.HasComment("Changes in the list price of a product over time."));
@@ -1426,8 +1390,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<ProductModel>(entity =>
-        {
+        modelBuilder.Entity<ProductModel>(entity => {
             entity.HasKey(e => e.ProductModelId).HasName("PK_ProductModel_ProductModelID");
 
             entity.ToTable("ProductModel", "Production", tb => tb.HasComment("Product model classification."));
@@ -1462,8 +1425,7 @@ public partial class AW22Context : DbContext
                 .HasColumnName("rowguid");
         });
 
-        modelBuilder.Entity<ProductModelIllustration>(entity =>
-        {
+        modelBuilder.Entity<ProductModelIllustration>(entity => {
             entity.HasKey(e => new { e.ProductModelId, e.IllustrationId }).HasName("PK_ProductModelIllustration_ProductModelID_IllustrationID");
 
             entity.ToTable("ProductModelIllustration", "Production", tb => tb.HasComment("Cross-reference table mapping product models and illustrations."));
@@ -1488,8 +1450,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<ProductModelProductDescriptionCulture>(entity =>
-        {
+        modelBuilder.Entity<ProductModelProductDescriptionCulture>(entity => {
             entity.HasKey(e => new { e.ProductModelId, e.ProductDescriptionId, e.CultureId }).HasName("PK_ProductModelProductDescriptionCulture_ProductModelID_ProductDescriptionID_CultureID");
 
             entity.ToTable("ProductModelProductDescriptionCulture", "Production", tb => tb.HasComment("Cross-reference table mapping product descriptions and the language the description is written in."));
@@ -1523,8 +1484,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<ProductPhoto>(entity =>
-        {
+        modelBuilder.Entity<ProductPhoto>(entity => {
             entity.HasKey(e => e.ProductPhotoId).HasName("PK_ProductPhoto_ProductPhotoID");
 
             entity.ToTable("ProductPhoto", "Production", tb => tb.HasComment("Product images."));
@@ -1546,8 +1506,7 @@ public partial class AW22Context : DbContext
                 .HasComment("Small image file name.");
         });
 
-        modelBuilder.Entity<ProductProductPhoto>(entity =>
-        {
+        modelBuilder.Entity<ProductProductPhoto>(entity => {
             entity.HasKey(e => new { e.ProductId, e.ProductPhotoId })
                 .HasName("PK_ProductProductPhoto_ProductID_ProductPhotoID")
                 .IsClustered(false);
@@ -1575,8 +1534,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<ProductReview>(entity =>
-        {
+        modelBuilder.Entity<ProductReview>(entity => {
             entity.HasKey(e => e.ProductReviewId).HasName("PK_ProductReview_ProductReviewID");
 
             entity.ToTable("ProductReview", "Production", tb => tb.HasComment("Customer reviews of products they have purchased."));
@@ -1613,8 +1571,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<ProductSubcategory>(entity =>
-        {
+        modelBuilder.Entity<ProductSubcategory>(entity => {
             entity.HasKey(e => e.ProductSubcategoryId).HasName("PK_ProductSubcategory_ProductSubcategoryID");
 
             entity.ToTable("ProductSubcategory", "Production", tb => tb.HasComment("Product subcategories. See ProductCategory table."));
@@ -1646,8 +1603,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<ProductVendor>(entity =>
-        {
+        modelBuilder.Entity<ProductVendor>(entity => {
             entity.HasKey(e => new { e.ProductId, e.BusinessEntityId }).HasName("PK_ProductVendor_ProductID_BusinessEntityID");
 
             entity.ToTable("ProductVendor", "Purchasing", tb => tb.HasComment("Cross-reference table mapping vendors with the products they supply."));
@@ -1697,16 +1653,14 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<PurchaseOrderDetail>(entity =>
-        {
+        modelBuilder.Entity<PurchaseOrderDetail>(entity => {
             entity.HasKey(e => new { e.PurchaseOrderId, e.PurchaseOrderDetailId }).HasName("PK_PurchaseOrderDetail_PurchaseOrderID_PurchaseOrderDetailID");
 
-            entity.ToTable("PurchaseOrderDetail", "Purchasing", tb =>
-                {
-                    tb.HasComment("Individual products associated with a specific purchase order. See PurchaseOrderHeader.");
-                    tb.HasTrigger("iPurchaseOrderDetail");
-                    tb.HasTrigger("uPurchaseOrderDetail");
-                });
+            entity.ToTable("PurchaseOrderDetail", "Purchasing", tb => {
+                tb.HasComment("Individual products associated with a specific purchase order. See PurchaseOrderHeader.");
+                tb.HasTrigger("iPurchaseOrderDetail");
+                tb.HasTrigger("uPurchaseOrderDetail");
+            });
 
             entity.HasIndex(e => e.ProductId, "IX_PurchaseOrderDetail_ProductID");
 
@@ -1755,15 +1709,13 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<PurchaseOrderHeader>(entity =>
-        {
+        modelBuilder.Entity<PurchaseOrderHeader>(entity => {
             entity.HasKey(e => e.PurchaseOrderId).HasName("PK_PurchaseOrderHeader_PurchaseOrderID");
 
-            entity.ToTable("PurchaseOrderHeader", "Purchasing", tb =>
-                {
-                    tb.HasComment("General purchase order information. See PurchaseOrderDetail.");
-                    tb.HasTrigger("uPurchaseOrderHeader");
-                });
+            entity.ToTable("PurchaseOrderHeader", "Purchasing", tb => {
+                tb.HasComment("General purchase order information. See PurchaseOrderDetail.");
+                tb.HasTrigger("uPurchaseOrderHeader");
+            });
 
             entity.HasIndex(e => e.EmployeeId, "IX_PurchaseOrderHeader_EmployeeID");
 
@@ -1826,15 +1778,13 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<SalesOrderDetail>(entity =>
-        {
+        modelBuilder.Entity<SalesOrderDetail>(entity => {
             entity.HasKey(e => new { e.SalesOrderId, e.SalesOrderDetailId }).HasName("PK_SalesOrderDetail_SalesOrderID_SalesOrderDetailID");
 
-            entity.ToTable("SalesOrderDetail", "Sales", tb =>
-                {
-                    tb.HasComment("Individual products associated with a specific sales order. See SalesOrderHeader.");
-                    tb.HasTrigger("iduSalesOrderDetail");
-                });
+            entity.ToTable("SalesOrderDetail", "Sales", tb => {
+                tb.HasComment("Individual products associated with a specific sales order. See SalesOrderHeader.");
+                tb.HasTrigger("iduSalesOrderDetail");
+            });
 
             entity.HasIndex(e => e.Rowguid, "AK_SalesOrderDetail_rowguid").IsUnique();
 
@@ -1884,15 +1834,13 @@ public partial class AW22Context : DbContext
                 .HasConstraintName("FK_SalesOrderDetail_SpecialOfferProduct_SpecialOfferIDProductID");
         });
 
-        modelBuilder.Entity<SalesOrderHeader>(entity =>
-        {
+        modelBuilder.Entity<SalesOrderHeader>(entity => {
             entity.HasKey(e => e.SalesOrderId).HasName("PK_SalesOrderHeader_SalesOrderID");
 
-            entity.ToTable("SalesOrderHeader", "Sales", tb =>
-                {
-                    tb.HasComment("General sales order information.");
-                    tb.HasTrigger("uSalesOrderHeader");
-                });
+            entity.ToTable("SalesOrderHeader", "Sales", tb => {
+                tb.HasComment("General sales order information.");
+                tb.HasTrigger("uSalesOrderHeader");
+            });
 
             entity.HasIndex(e => e.SalesOrderNumber, "AK_SalesOrderHeader_SalesOrderNumber").IsUnique();
 
@@ -2014,8 +1962,7 @@ public partial class AW22Context : DbContext
             entity.HasOne(d => d.Territory).WithMany(p => p.SalesOrderHeaders).HasForeignKey(d => d.TerritoryId);
         });
 
-        modelBuilder.Entity<SalesOrderHeaderSalesReason>(entity =>
-        {
+        modelBuilder.Entity<SalesOrderHeaderSalesReason>(entity => {
             entity.HasKey(e => new { e.SalesOrderId, e.SalesReasonId }).HasName("PK_SalesOrderHeaderSalesReason_SalesOrderID_SalesReasonID");
 
             entity.ToTable("SalesOrderHeaderSalesReason", "Sales", tb => tb.HasComment("Cross-reference table mapping sales orders to sales reason codes."));
@@ -2038,8 +1985,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<SalesPerson>(entity =>
-        {
+        modelBuilder.Entity<SalesPerson>(entity => {
             entity.HasKey(e => e.BusinessEntityId).HasName("PK_SalesPerson_BusinessEntityID");
 
             entity.ToTable("SalesPerson", "Sales", tb => tb.HasComment("Sales representative current information."));
@@ -2089,8 +2035,7 @@ public partial class AW22Context : DbContext
             entity.HasOne(d => d.Territory).WithMany(p => p.SalesPeople).HasForeignKey(d => d.TerritoryId);
         });
 
-        modelBuilder.Entity<SalesPersonQuotaHistory>(entity =>
-        {
+        modelBuilder.Entity<SalesPersonQuotaHistory>(entity => {
             entity.HasKey(e => new { e.BusinessEntityId, e.QuotaDate }).HasName("PK_SalesPersonQuotaHistory_BusinessEntityID_QuotaDate");
 
             entity.ToTable("SalesPersonQuotaHistory", "Sales", tb => tb.HasComment("Sales performance tracking."));
@@ -2120,8 +2065,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<SalesReason>(entity =>
-        {
+        modelBuilder.Entity<SalesReason>(entity => {
             entity.HasKey(e => e.SalesReasonId).HasName("PK_SalesReason_SalesReasonID");
 
             entity.ToTable("SalesReason", "Sales", tb => tb.HasComment("Lookup table of customer purchase reasons."));
@@ -2141,8 +2085,7 @@ public partial class AW22Context : DbContext
                 .HasComment("Category the sales reason belongs to.");
         });
 
-        modelBuilder.Entity<SalesTaxRate>(entity =>
-        {
+        modelBuilder.Entity<SalesTaxRate>(entity => {
             entity.HasKey(e => e.SalesTaxRateId).HasName("PK_SalesTaxRate_SalesTaxRateID");
 
             entity.ToTable("SalesTaxRate", "Sales", tb => tb.HasComment("Tax rate lookup table."));
@@ -2179,8 +2122,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<SalesTerritory>(entity =>
-        {
+        modelBuilder.Entity<SalesTerritory>(entity => {
             entity.HasKey(e => e.TerritoryId).HasName("PK_SalesTerritory_TerritoryID");
 
             entity.ToTable("SalesTerritory", "Sales", tb => tb.HasComment("Sales territory lookup table."));
@@ -2233,8 +2175,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<SalesTerritoryHistory>(entity =>
-        {
+        modelBuilder.Entity<SalesTerritoryHistory>(entity => {
             entity.HasKey(e => new { e.BusinessEntityId, e.StartDate, e.TerritoryId }).HasName("PK_SalesTerritoryHistory_BusinessEntityID_StartDate_TerritoryID");
 
             entity.ToTable("SalesTerritoryHistory", "Sales", tb => tb.HasComment("Sales representative transfers to other sales territories."));
@@ -2271,8 +2212,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<ScrapReason>(entity =>
-        {
+        modelBuilder.Entity<ScrapReason>(entity => {
             entity.HasKey(e => e.ScrapReasonId).HasName("PK_ScrapReason_ScrapReasonID");
 
             entity.ToTable("ScrapReason", "Production", tb => tb.HasComment("Manufacturing failure reasons lookup table."));
@@ -2291,8 +2231,7 @@ public partial class AW22Context : DbContext
                 .HasComment("Failure description.");
         });
 
-        modelBuilder.Entity<Shift>(entity =>
-        {
+        modelBuilder.Entity<Shift>(entity => {
             entity.HasKey(e => e.ShiftId).HasName("PK_Shift_ShiftID");
 
             entity.ToTable("Shift", "HumanResources", tb => tb.HasComment("Work shift lookup table."));
@@ -2316,8 +2255,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.StartTime).HasComment("Shift start time.");
         });
 
-        modelBuilder.Entity<ShipMethod>(entity =>
-        {
+        modelBuilder.Entity<ShipMethod>(entity => {
             entity.HasKey(e => e.ShipMethodId).HasName("PK_ShipMethod_ShipMethodID");
 
             entity.ToTable("ShipMethod", "Purchasing", tb => tb.HasComment("Shipping company lookup table."));
@@ -2350,8 +2288,7 @@ public partial class AW22Context : DbContext
                 .HasColumnType("money");
         });
 
-        modelBuilder.Entity<ShoppingCartItem>(entity =>
-        {
+        modelBuilder.Entity<ShoppingCartItem>(entity => {
             entity.HasKey(e => e.ShoppingCartItemId).HasName("PK_ShoppingCartItem_ShoppingCartItemID");
 
             entity.ToTable("ShoppingCartItem", "Sales", tb => tb.HasComment("Contains online customer orders until the order is submitted or cancelled."));
@@ -2385,8 +2322,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<SpecialOffer>(entity =>
-        {
+        modelBuilder.Entity<SpecialOffer>(entity => {
             entity.HasKey(e => e.SpecialOfferId).HasName("PK_SpecialOffer_SpecialOfferID");
 
             entity.ToTable("SpecialOffer", "Sales", tb => tb.HasComment("Sale discounts lookup table."));
@@ -2427,8 +2363,7 @@ public partial class AW22Context : DbContext
                 .HasComment("Discount type category.");
         });
 
-        modelBuilder.Entity<SpecialOfferProduct>(entity =>
-        {
+        modelBuilder.Entity<SpecialOfferProduct>(entity => {
             entity.HasKey(e => new { e.SpecialOfferId, e.ProductId }).HasName("PK_SpecialOfferProduct_SpecialOfferID_ProductID");
 
             entity.ToTable("SpecialOfferProduct", "Sales", tb => tb.HasComment("Cross-reference table mapping products to special offer discounts."));
@@ -2461,8 +2396,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<StateProvince>(entity =>
-        {
+        modelBuilder.Entity<StateProvince>(entity => {
             entity.HasKey(e => e.StateProvinceId).HasName("PK_StateProvince_StateProvinceID");
 
             entity.ToTable("StateProvince", "Person", tb => tb.HasComment("State and province lookup table."));
@@ -2511,8 +2445,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<Store>(entity =>
-        {
+        modelBuilder.Entity<Store>(entity => {
             entity.HasKey(e => e.BusinessEntityId).HasName("PK_Store_BusinessEntityID");
 
             entity.ToTable("Store", "Sales", tb => tb.HasComment("Customers (resellers) of Adventure Works products."));
@@ -2552,8 +2485,7 @@ public partial class AW22Context : DbContext
             entity.HasOne(d => d.SalesPerson).WithMany(p => p.Stores).HasForeignKey(d => d.SalesPersonId);
         });
 
-        modelBuilder.Entity<TransactionHistory>(entity =>
-        {
+        modelBuilder.Entity<TransactionHistory>(entity => {
             entity.HasKey(e => e.TransactionId).HasName("PK_TransactionHistory_TransactionID");
 
             entity.ToTable("TransactionHistory", "Production", tb => tb.HasComment("Record of each purchase order, sales order, or work order transaction year to date."));
@@ -2596,8 +2528,7 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<TransactionHistoryArchive>(entity =>
-        {
+        modelBuilder.Entity<TransactionHistoryArchive>(entity => {
             entity.HasKey(e => e.TransactionId).HasName("PK_TransactionHistoryArchive_TransactionID");
 
             entity.ToTable("TransactionHistoryArchive", "Production", tb => tb.HasComment("Transactions for previous years."));
@@ -2637,8 +2568,7 @@ public partial class AW22Context : DbContext
                 .HasComment("W = Work Order, S = Sales Order, P = Purchase Order");
         });
 
-        modelBuilder.Entity<UnitMeasure>(entity =>
-        {
+        modelBuilder.Entity<UnitMeasure>(entity => {
             entity.HasKey(e => e.UnitMeasureCode).HasName("PK_UnitMeasure_UnitMeasureCode");
 
             entity.ToTable("UnitMeasure", "Production", tb => tb.HasComment("Unit of measure lookup table."));
@@ -2658,8 +2588,7 @@ public partial class AW22Context : DbContext
                 .HasComment("Unit of measure description.");
         });
 
-        modelBuilder.Entity<VAdditionalContactInfo>(entity =>
-        {
+        modelBuilder.Entity<VAdditionalContactInfo>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vAdditionalContactInfo", "Person");
@@ -2685,8 +2614,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.TelephoneNumber).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<VEmployee>(entity =>
-        {
+        modelBuilder.Entity<VEmployee>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vEmployee", "HumanResources");
@@ -2710,8 +2638,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.Title).HasMaxLength(8);
         });
 
-        modelBuilder.Entity<VEmployeeDepartment>(entity =>
-        {
+        modelBuilder.Entity<VEmployeeDepartment>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vEmployeeDepartment", "HumanResources");
@@ -2728,8 +2655,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.Title).HasMaxLength(8);
         });
 
-        modelBuilder.Entity<VEmployeeDepartmentHistory>(entity =>
-        {
+        modelBuilder.Entity<VEmployeeDepartmentHistory>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vEmployeeDepartmentHistory", "HumanResources");
@@ -2747,8 +2673,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.Title).HasMaxLength(8);
         });
 
-        modelBuilder.Entity<VIndividualCustomer>(entity =>
-        {
+        modelBuilder.Entity<VIndividualCustomer>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vIndividualCustomer", "Sales");
@@ -2772,8 +2697,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.Title).HasMaxLength(8);
         });
 
-        modelBuilder.Entity<VJobCandidate>(entity =>
-        {
+        modelBuilder.Entity<VJobCandidate>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vJobCandidate", "HumanResources");
@@ -2816,8 +2740,7 @@ public partial class AW22Context : DbContext
                 .HasColumnName("Name.Suffix");
         });
 
-        modelBuilder.Entity<VJobCandidateEducation>(entity =>
-        {
+        modelBuilder.Entity<VJobCandidateEducation>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vJobCandidateEducation", "HumanResources");
@@ -2861,8 +2784,7 @@ public partial class AW22Context : DbContext
                 .HasColumnName("JobCandidateID");
         });
 
-        modelBuilder.Entity<VJobCandidateEmployment>(entity =>
-        {
+        modelBuilder.Entity<VJobCandidateEmployment>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vJobCandidateEmployment", "HumanResources");
@@ -2890,8 +2812,7 @@ public partial class AW22Context : DbContext
                 .HasColumnName("JobCandidateID");
         });
 
-        modelBuilder.Entity<VPersonDemographic>(entity =>
-        {
+        modelBuilder.Entity<VPersonDemographic>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vPersonDemographics", "Sales");
@@ -2909,8 +2830,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.YearlyIncome).HasMaxLength(30);
         });
 
-        modelBuilder.Entity<VProductAndDescription>(entity =>
-        {
+        modelBuilder.Entity<VProductAndDescription>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vProductAndDescription", "Production");
@@ -2925,8 +2845,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.ProductModel).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<VProductModelCatalogDescription>(entity =>
-        {
+        modelBuilder.Entity<VProductModelCatalogDescription>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vProductModelCatalogDescription", "Production");
@@ -2961,8 +2880,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.Wheel).HasMaxLength(256);
         });
 
-        modelBuilder.Entity<VProductModelInstruction>(entity =>
-        {
+        modelBuilder.Entity<VProductModelInstruction>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vProductModelInstructions", "Production");
@@ -2980,8 +2898,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.Step).HasMaxLength(1024);
         });
 
-        modelBuilder.Entity<VSalesPerson>(entity =>
-        {
+        modelBuilder.Entity<VSalesPerson>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vSalesPerson", "Sales");
@@ -3011,8 +2928,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.Title).HasMaxLength(8);
         });
 
-        modelBuilder.Entity<VSalesPersonSalesByFiscalYear>(entity =>
-        {
+        modelBuilder.Entity<VSalesPersonSalesByFiscalYear>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vSalesPersonSalesByFiscalYears", "Sales");
@@ -3032,8 +2948,7 @@ public partial class AW22Context : DbContext
                 .HasColumnName("2004");
         });
 
-        modelBuilder.Entity<VStateProvinceCountryRegion>(entity =>
-        {
+        modelBuilder.Entity<VStateProvinceCountryRegion>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vStateProvinceCountryRegion", "Person");
@@ -3048,8 +2963,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.TerritoryId).HasColumnName("TerritoryID");
         });
 
-        modelBuilder.Entity<VStoreWithAddress>(entity =>
-        {
+        modelBuilder.Entity<VStoreWithAddress>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vStoreWithAddresses", "Sales");
@@ -3065,8 +2979,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.StateProvinceName).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<VStoreWithContact>(entity =>
-        {
+        modelBuilder.Entity<VStoreWithContact>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vStoreWithContacts", "Sales");
@@ -3084,8 +2997,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.Title).HasMaxLength(8);
         });
 
-        modelBuilder.Entity<VStoreWithDemographic>(entity =>
-        {
+        modelBuilder.Entity<VStoreWithDemographic>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vStoreWithDemographics", "Sales");
@@ -3101,8 +3013,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.Specialty).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<VVendorWithAddress>(entity =>
-        {
+        modelBuilder.Entity<VVendorWithAddress>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vVendorWithAddresses", "Purchasing");
@@ -3118,8 +3029,7 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.StateProvinceName).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<VVendorWithContact>(entity =>
-        {
+        modelBuilder.Entity<VVendorWithContact>(entity => {
             entity
                 .HasNoKey()
                 .ToView("vVendorWithContacts", "Purchasing");
@@ -3137,15 +3047,13 @@ public partial class AW22Context : DbContext
             entity.Property(e => e.Title).HasMaxLength(8);
         });
 
-        modelBuilder.Entity<Vendor>(entity =>
-        {
+        modelBuilder.Entity<Vendor>(entity => {
             entity.HasKey(e => e.BusinessEntityId).HasName("PK_Vendor_BusinessEntityID");
 
-            entity.ToTable("Vendor", "Purchasing", tb =>
-                {
-                    tb.HasComment("Companies from whom Adventure Works Cycles purchases parts or other goods.");
-                    tb.HasTrigger("dVendor");
-                });
+            entity.ToTable("Vendor", "Purchasing", tb => {
+                tb.HasComment("Companies from whom Adventure Works Cycles purchases parts or other goods.");
+                tb.HasTrigger("dVendor");
+            });
 
             entity.HasIndex(e => e.AccountNumber, "AK_Vendor_AccountNumber").IsUnique();
 
@@ -3182,16 +3090,14 @@ public partial class AW22Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<WorkOrder>(entity =>
-        {
+        modelBuilder.Entity<WorkOrder>(entity => {
             entity.HasKey(e => e.WorkOrderId).HasName("PK_WorkOrder_WorkOrderID");
 
-            entity.ToTable("WorkOrder", "Production", tb =>
-                {
-                    tb.HasComment("Manufacturing work orders.");
-                    tb.HasTrigger("iWorkOrder");
-                    tb.HasTrigger("uWorkOrder");
-                });
+            entity.ToTable("WorkOrder", "Production", tb => {
+                tb.HasComment("Manufacturing work orders.");
+                tb.HasTrigger("iWorkOrder");
+                tb.HasTrigger("uWorkOrder");
+            });
 
             entity.HasIndex(e => e.ProductId, "IX_WorkOrder_ProductID");
 
@@ -3232,8 +3138,7 @@ public partial class AW22Context : DbContext
             entity.HasOne(d => d.ScrapReason).WithMany(p => p.WorkOrders).HasForeignKey(d => d.ScrapReasonId);
         });
 
-        modelBuilder.Entity<WorkOrderRouting>(entity =>
-        {
+        modelBuilder.Entity<WorkOrderRouting>(entity => {
             entity.HasKey(e => new { e.WorkOrderId, e.ProductId, e.OperationSequence }).HasName("PK_WorkOrderRouting_WorkOrderID_ProductID_OperationSequence");
 
             entity.ToTable("WorkOrderRouting", "Production", tb => tb.HasComment("Work order details."));
